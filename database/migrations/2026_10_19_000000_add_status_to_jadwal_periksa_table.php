@@ -15,6 +15,7 @@ return new class extends Migration
         }
     }
 
+    
     public function down(): void
     {
         if (Schema::hasColumn('jadwal_periksa', 'status')) {

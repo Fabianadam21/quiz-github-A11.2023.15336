@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Obat;
 use Illuminate\Http\Request;
 
+
 class ObatController extends Controller
 {
     public function index()
