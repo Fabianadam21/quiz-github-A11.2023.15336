@@ -12,6 +12,30 @@ class JadwalPeriksaCrudTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_create_and_edit_pages_render_the_weekday_options(): void
+    {
+        $dokter = User::factory()->create(['role' => 'dokter']);
+        $jadwalPeriksa = JadwalPeriksa::query()->create([
+            'id_dokter' => $dokter->id,
+            'hari' => 'Senin',
+            'jam_mulai' => '08:00',
+            'jam_selesai' => '12:00',
+            'status' => 'Aktif',
+        ]);
+
+        $this->actingAs($dokter)
+            ->get(route('jadwal-periksa.create'))
+            ->assertOk()
+            ->assertSee('Senin')
+            ->assertSee('Minggu');
+
+        $this->actingAs($dokter)
+            ->get(route('jadwal-periksa.edit', $jadwalPeriksa))
+            ->assertOk()
+            ->assertSee('Senin')
+            ->assertSee('Minggu');
+    }
+
     public function test_doctor_can_manage_only_their_own_schedule(): void
     {
         $dokter = User::factory()->create(['role' => 'dokter']);

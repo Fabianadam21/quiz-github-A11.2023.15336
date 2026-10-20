@@ -7,7 +7,6 @@ use App\Models\JadwalPeriksa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class JadwalPeriksaController extends Controller
 {
     private const HARI = [
@@ -20,86 +19,67 @@ class JadwalPeriksaController extends Controller
         'Minggu',
     ];
 
-    public function index()
-    {
-        $jadwalPeriksas = Auth::user()
-            ->jadwalPeriksas()
-            ->orderByRaw("CASE hari
-                WHEN 'Senin' THEN 1
-                WHEN 'Selasa' THEN 2
-                WHEN 'Rabu' THEN 3
-                WHEN 'Kamis' THEN 4
-                WHEN 'Jumat' THEN 5
-                WHEN 'Sabtu' THEN 6
-                WHEN 'Minggu' THEN 7
-                ELSE 8
-            END")
-            ->orderBy('jam_mulai')
-            ->get();
-
+    public function index(){
+        $dokter = Auth::user();
+        $jadwalPeriksas = JadwalPeriksa::where('id_dokter', $dokter->id)->orderBy('hari')->get();
         return view('dokter.jadwal-periksa.index', compact('jadwalPeriksas'));
     }
 
-    public function create()
-    {
+    public function create(){
         $hari = self::HARI;
-
         return view('dokter.jadwal-periksa.create', compact('hari'));
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'hari' => ['required', 'in:'.implode(',', self::HARI)],
-            'jam_mulai' => ['required', 'date_format:H:i'],
-            'jam_selesai' => ['required', 'date_format:H:i', 'after:jam_mulai'],
+    public function store(Request $request){
+        $request->validate([
+            'hari' => 'required',
+            'jam_mulai' => 'required',
+            'jam_selesai' => 'required'
         ]);
 
-        Auth::user()->jadwalPeriksas()->create([
-            ...$validated,
-            'status' => 'Aktif',
+        JadwalPeriksa::create([
+            'id_dokter' => Auth::id(),
+            'hari' => $request->hari,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai
         ]);
 
-        return redirect()
-            ->route('jadwal-periksa.index')
-            ->with('success', 'Jadwal periksa berhasil ditambahkan.');
+        return redirect()->route('jadwal-periksa.index')
+            ->with('message', 'Data Berhasil di Simpan')
+            ->with('type', 'success');
     }
 
-    public function edit(string $jadwal_periksa)
-    {
-        $jadwalPeriksa = $this->jadwalMilikDokter($jadwal_periksa);
+    public function edit($id){
+        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
         $hari = self::HARI;
-
         return view('dokter.jadwal-periksa.edit', compact('jadwalPeriksa', 'hari'));
     }
 
-    public function update(Request $request, string $jadwal_periksa)
-    {
-        $jadwalPeriksa = $this->jadwalMilikDokter($jadwal_periksa);
-        $validated = $request->validate([
-            'hari' => ['required', 'in:'.implode(',', self::HARI)],
-            'jam_mulai' => ['required', 'date_format:H:i'],
-            'jam_selesai' => ['required', 'date_format:H:i', 'after:jam_mulai'],
+    public function update(Request $request, string $id){
+        $request->validate([
+            'hari' => 'required',
+            'jam_mulai' => 'required',
+            'jam_selesai' => 'required'
         ]);
 
-        $jadwalPeriksa->update($validated);
+        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+        $jadwalPeriksa->update([
+            'hari' => $request->hari,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai
+        ]);
 
-        return redirect()
-            ->route('jadwal-periksa.index')
-            ->with('success', 'Jadwal periksa berhasil diperbarui.');
+        return redirect()->route('jadwal-periksa.index')
+            ->with('message', 'Berhasil Melakukan Update Data')
+            ->with('type', 'success');
     }
 
-    public function destroy(string $jadwal_periksa)
-    {
-        $this->jadwalMilikDokter($jadwal_periksa)->delete();
+    public function destroy(string $id){
+        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+        $jadwalPeriksa->delete();
 
-        return redirect()
-            ->route('jadwal-periksa.index')
-            ->with('success', 'Jadwal periksa berhasil dihapus.');
-    }
-
-    private function jadwalMilikDokter(string $id): JadwalPeriksa
-    {
-        return Auth::user()->jadwalPeriksas()->findOrFail($id);
+        return redirect()->route('jadwal-periksa.index')
+            ->with('message', 'Berhasil Melakukan Hapus Data')
+            ->with('type', 'success');
     }
 }
