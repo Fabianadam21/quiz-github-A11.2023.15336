@@ -1,103 +1,76 @@
-<x-layouts.app title="Tambah Jadwal Periksa">
-
-    {{-- Header --}}
-    <div class="flex items-center gap-3 mb-6">
-        <a href="{{ route('jadwal-periksa.index') }}"
-            class="flex items-center justify-center w-9 h-9 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 transition">
-            <i class="fas fa-arrow-left text-xs"></i>
+<x-layouts.app title="Tambah Dokter">
+    <div class="mb-6 flex items-center gap-3">
+        <a href="{{ route('dokter.index') }}" class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-slate-500 shadow-sm hover:bg-slate-100">
+            <i class="fas fa-arrow-left"></i>
         </a>
-        <h2 class="text-xl font-bold text-slate-800">
-            Tambah Jadwal Periksa
-        </h2>
-    </div>
-
-    {{-- Card --}}
-    <div class="card bg-base-100 shadow-md rounded-2xl border border-slate-200">
-        <div class="card-body p-8">
-
-            <form action="{{ route('jadwal-periksa.store') }}" method="POST">
-                @csrf
-
-                {{-- Hari --}}
-                <div class="form-control mb-5">
-                    <label class="label pb-1">
-                        <span class="text-sm font-semibold text-gray-700">
-                            Hari <span class="text-red-500">*</span>
-                        </span>
-                    </label>
-
-                    <select name="hari" id="hari"
-                        class="select select-bordered border-2 px-4 w-full rounded-lg text-sm @error('hari') select-error @enderror"
-                        required>
-                        <option value="">Pilih Hari</option>
-                        @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $day)
-                            <option value="{{ $day }}" {{ old('hari') == $day ? 'selected' : '' }}>
-                                {{ $day }}
-                            </option>
-                        @endforeach
-                    </select>
-
-                    @error('hari')
-                    <label class="label pt-1">
-                        <span class="label-text-alt text-red-500">{{ $message }}</span>
-                    </label>
-                    @enderror
-                </div>
-
-                {{-- Jam Mulai --}}
-                <div class="form-control mb-5">
-                    <label class="label pb-1">
-                        <span class="text-sm font-semibold text-gray-700">
-                            Jam Mulai <span class="text-red-500">*</span>
-                        </span>
-                    </label>
-
-                    <input type="time" name="jam_mulai" id="jam_mulai" value="{{ old('jam_mulai') }}"
-                        class="input input-bordered border-2 px-4 w-full rounded-lg text-sm @error('jam_mulai') input-error @enderror"
-                        required>
-
-                    @error('jam_mulai')
-                    <label class="label pt-1">
-                        <span class="label-text-alt text-red-500">{{ $message }}</span>
-                    </label>
-                    @enderror
-                </div>
-
-                {{-- Jam Selesai --}}
-                <div class="form-control mb-6">
-                    <label class="label pb-1">
-                        <span class="text-sm font-semibold text-gray-700">
-                            Jam Selesai <span class="text-red-500">*</span>
-                        </span>
-                    </label>
-
-                    <input type="time" name="jam_selesai" id="jam_selesai" value="{{ old('jam_selesai') }}"
-                        class="input input-bordered border-2 px-4 w-full rounded-lg text-sm @error('jam_selesai') input-error @enderror"
-                        required>
-
-                    @error('jam_selesai')
-                    <label class="label pt-1">
-                        <span class="label-text-alt text-red-500">{{ $message }}</span>
-                    </label>
-                    @enderror
-                </div>
-
-                {{-- Buttons --}}
-                <div class="flex gap-3">
-                    <button type="submit"
-                        class="flex items-center gap-2 px-6 py-2.5 bg-[#2d4499] hover:bg-[#1e2d6b] text-white rounded-lg text-sm font-semibold transition">
-                        <i class="fas fa-save"></i>
-                        Simpan
-                    </button>
-
-                    <a href="{{ route('jadwal-periksa.index') }}"
-                        class="btn btn-ghost bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-lg px-6">
-                        Batal
-                    </a>
-                </div>
-
-            </form>
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">Tambah Dokter</h1>
+            <p class="mt-1 text-slate-500">Masukkan informasi akun dan poli dokter.</p>
         </div>
     </div>
 
+    <section class="panel-card max-w-3xl overflow-hidden">
+        <div class="border-b border-slate-200 px-6 py-4">
+            <h2 class="font-bold text-slate-800">Informasi Dokter</h2>
+        </div>
+        <form action="{{ route('dokter.store') }}" method="POST" class="space-y-5 p-6">
+            @csrf
+
+            <div class="grid gap-5 sm:grid-cols-2">
+                <div>
+                    <label for="nama" class="mb-2 block text-sm font-semibold text-slate-700">Nama Dokter</label>
+                    <input id="nama" type="text" name="nama" value="{{ old('nama') }}" class="input input-bordered w-full @error('nama') input-error @enderror" required>
+                    @error('nama')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label for="id_poli" class="mb-2 block text-sm font-semibold text-slate-700">Poli</label>
+                    <select id="id_poli" name="id_poli" class="select select-bordered w-full @error('id_poli') select-error @enderror" required>
+                        <option value="">Pilih poli</option>
+                        @foreach($polis as $poli)
+                            <option value="{{ $poli->id }}" @selected(old('id_poli') == $poli->id)>{{ $poli->nama_poli }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_poli')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label for="no_ktp" class="mb-2 block text-sm font-semibold text-slate-700">Nomor KTP</label>
+                    <input id="no_ktp" type="text" name="no_ktp" value="{{ old('no_ktp') }}" maxlength="16" class="input input-bordered w-full @error('no_ktp') input-error @enderror" required>
+                    @error('no_ktp')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label for="no_hp" class="mb-2 block text-sm font-semibold text-slate-700">Nomor HP</label>
+                    <input id="no_hp" type="text" name="no_hp" value="{{ old('no_hp') }}" maxlength="15" class="input input-bordered w-full @error('no_hp') input-error @enderror" required>
+                    @error('no_hp')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="alamat" class="mb-2 block text-sm font-semibold text-slate-700">Alamat</label>
+                    <textarea id="alamat" name="alamat" rows="3" class="textarea textarea-bordered w-full @error('alamat') textarea-error @enderror" required>{{ old('alamat') }}</textarea>
+                    @error('alamat')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label for="email" class="mb-2 block text-sm font-semibold text-slate-700">Email</label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" class="input input-bordered w-full @error('email') input-error @enderror" required>
+                    @error('email')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label for="password" class="mb-2 block text-sm font-semibold text-slate-700">Password</label>
+                    <input id="password" type="password" name="password" minlength="6" class="input input-bordered w-full @error('password') input-error @enderror" required>
+                    @error('password')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+            </div>
+
+            <div class="flex gap-3 border-t border-slate-200 pt-5">
+                <button type="submit" class="btn border-0 bg-[#2d4499] text-white hover:bg-[#243d8b]">
+                    <i class="fas fa-save"></i> Simpan Dokter
+                </button>
+                <a href="{{ route('dokter.index') }}" class="btn bg-slate-100 text-slate-600 hover:bg-slate-200">Batal</a>
+            </div>
+        </form>
+    </section>
 </x-layouts.app>

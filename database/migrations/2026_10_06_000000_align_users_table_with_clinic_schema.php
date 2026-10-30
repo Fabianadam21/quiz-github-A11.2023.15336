@@ -12,15 +12,15 @@ return new class extends Migration
             throw new RuntimeException('The users table must exist before its clinic columns can be added.');
         }
 
+        $addAlamat = ! Schema::hasColumn('users', 'alamat');
+        $addNoKtp = ! Schema::hasColumn('users', 'no_ktp');
+        $addNoHp = ! Schema::hasColumn('users', 'no_hp');
+        $addNoRm = ! Schema::hasColumn('users', 'no_rm');
+        $addRole = ! Schema::hasColumn('users', 'role');
+
         if (! Schema::hasColumn('users', 'nama')) {
             if (Schema::hasColumn('users', 'name')) {
-                Schema::table('users', function (Blueprint $table) use (
-                    $addAlamat,
-                    $addNoKtp,
-                    $addNoHp,
-                    $addNoRm,
-                    $addRole,
-                ) {
+                Schema::table('users', function (Blueprint $table) {
                     $table->renameColumn('name', 'nama');
                 });
             } else {
@@ -30,17 +30,17 @@ return new class extends Migration
             }
         }
 
-        $addAlamat = ! Schema::hasColumn('users', 'alamat');
-        $addNoKtp = ! Schema::hasColumn('users', 'no_ktp');
-        $addNoHp = ! Schema::hasColumn('users', 'no_hp');
-        $addNoRm = ! Schema::hasColumn('users', 'no_rm');
-        $addRole = ! Schema::hasColumn('users', 'role');
-
         if (! ($addAlamat || $addNoKtp || $addNoHp || $addNoRm || $addRole)) {
             return;
         }
 
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) use (
+            $addAlamat,
+            $addNoKtp,
+            $addNoHp,
+            $addNoRm,
+            $addRole,
+        ) {
             if ($addAlamat) {
                 $table->string('alamat')->nullable();
             }

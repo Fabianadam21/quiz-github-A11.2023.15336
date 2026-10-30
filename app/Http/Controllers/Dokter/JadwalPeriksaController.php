@@ -32,9 +32,9 @@ class JadwalPeriksaController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'hari' => 'required',
-            'jam_mulai' => 'required',
-            'jam_selesai' => 'required'
+            'hari' => ['required', 'in:'.implode(',', self::HARI)],
+            'jam_mulai' => ['required', 'date_format:H:i'],
+            'jam_selesai' => ['required', 'date_format:H:i', 'after:jam_mulai'],
         ]);
 
         JadwalPeriksa::create([
@@ -50,19 +50,19 @@ class JadwalPeriksaController extends Controller
     }
 
     public function edit($id){
-        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+        $jadwalPeriksa = JadwalPeriksa::where('id_dokter', Auth::id())->findOrFail($id);
         $hari = self::HARI;
         return view('dokter.jadwal-periksa.edit', compact('jadwalPeriksa', 'hari'));
     }
 
     public function update(Request $request, string $id){
         $request->validate([
-            'hari' => 'required',
-            'jam_mulai' => 'required',
-            'jam_selesai' => 'required'
+            'hari' => ['required', 'in:'.implode(',', self::HARI)],
+            'jam_mulai' => ['required', 'date_format:H:i'],
+            'jam_selesai' => ['required', 'date_format:H:i', 'after:jam_mulai'],
         ]);
 
-        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+        $jadwalPeriksa = JadwalPeriksa::where('id_dokter', Auth::id())->findOrFail($id);
         $jadwalPeriksa->update([
             'hari' => $request->hari,
             'jam_mulai' => $request->jam_mulai,
@@ -75,7 +75,7 @@ class JadwalPeriksaController extends Controller
     }
 
     public function destroy(string $id){
-        $jadwalPeriksa = JadwalPeriksa::findOrFail($id);
+        $jadwalPeriksa = JadwalPeriksa::where('id_dokter', Auth::id())->findOrFail($id);
         $jadwalPeriksa->delete();
 
         return redirect()->route('jadwal-periksa.index')

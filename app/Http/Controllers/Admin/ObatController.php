@@ -22,15 +22,17 @@ class ObatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_obat' => 'required|string',
-            'kemasan' => 'required|string',
-            'harga' => 'required|integer',
+            'nama_obat' => ['required', 'string', 'max:255'],
+            'kemasan' => ['nullable', 'string', 'max:35'],
+            'harga' => ['required', 'integer', 'min:0'],
+            'stok' => ['sometimes', 'integer', 'min:0'],
         ]);
 
         Obat::create([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
-            'harga' => $request->harga
+            'harga' => $request->harga,
+            'stok' => $request->input('stok', 0),
         ]);
 
         return redirect()
@@ -49,16 +51,18 @@ class ObatController extends Controller
 public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama_obat' => 'required|string',
-            'kemasan' => 'nullable|string',
-            'harga' => 'required|integer',
+            'nama_obat' => ['required', 'string', 'max:255'],
+            'kemasan' => ['nullable', 'string', 'max:35'],
+            'harga' => ['required', 'integer', 'min:0'],
+            'stok' => ['sometimes', 'integer', 'min:0'],
         ]);
 
         $obat = Obat::findOrFail($id);
         $obat->update([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
-            'harga' => $request->harga
+            'harga' => $request->harga,
+            'stok' => $request->input('stok', $obat->stok),
         ]);
 
         return redirect()

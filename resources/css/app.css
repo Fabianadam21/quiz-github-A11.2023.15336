@@ -1,16 +1,19 @@
 @import "tailwindcss";
 
-/* 1. Plugin DaisyUI */
 @plugin "daisyui";
 
-/* 2. Custom Theme Variables & Fonts */
 @theme {
-    --font-sans: 'Figtree', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', 'Figtree', ui-sans-serif, system-ui, sans-serif;
     --font-serif: 'Instrument Serif', serif;
     --sidebar-w: 260px;
+    --poliklinik-blue: #1b2f86;
+    --poliklinik-blue-strong: #15296d;
+    --poliklinik-blue-soft: #2d4fc1;
+    --poliklinik-green: #17c49a;
+    --poliklinik-surface: #f3f4f6;
+    --poliklinik-border: rgba(10, 16, 45, 0.08);
 }
 
-/* 3. Custom Utilities & Component Styles */
 @utility brand-serif {
     font-family: var(--font-serif);
 }
@@ -18,6 +21,7 @@
 @utility app-wrapper {
     display: flex;
     min-height: 100vh;
+    background: var(--poliklinik-surface);
 }
 
 @utility main-content {
@@ -26,20 +30,21 @@
     flex-direction: column;
     min-height: 100vh;
     min-width: 0;
+    background: #f5f7fb;
 }
 
 @utility main-scroll {
     flex: 1 1 0%;
-    padding: 28px;
+    padding: 20px 28px 28px;
 }
 
 @utility sidebar-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background-color: rgb(0 0 0 / 0.45);
+    background-color: rgb(10 16 45 / 0.38);
     z-index: 39;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(1.5px);
 }
 
 @utility btn-primary-gradient {
@@ -63,9 +68,9 @@
     background: linear-gradient(135deg, #162156, #1e2d6b);
 }
 
-/* 4. Custom Class Styles */
 body {
-    background-color: #f1f5f9;
+    background: var(--poliklinik-surface);
+    color: #0f172a;
     font-family: var(--font-sans);
 }
 
@@ -77,9 +82,166 @@ body {
     flex-shrink: 0;
     z-index: 40;
     overflow: hidden;
-    background: linear-gradient(160deg, #1e2d6b 0%, #2d4499 60%, #1a2d7a 100%);
-    box-shadow: 4px 0 24px rgba(30, 45, 107, 0.35);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(180deg, #1b2f86 0%, #233f9a 100%);
+    box-shadow: 8px 0 22px rgba(15, 23, 42, 0.12);
+    transition: all 0.3s ease;
+}
+
+.sidebar-fixed .menu-item {
+    color: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.sidebar-fixed .menu-item.active,
+.sidebar-fixed .menu-item:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.sidebar-fixed .menu-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    padding: 0 12px 8px;
+}
+
+.main-content header {
+    background: rgba(255,255,255,0.92);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    backdrop-filter: blur(12px);
+}
+
+.main-content .header-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.main-content .panel-card {
+    background: rgba(255,255,255,0.92);
+    border: 1px solid var(--poliklinik-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+}
+
+.dashboard-banner {
+    background: linear-gradient(135deg, #4ab4f6 0%, #2e52d9 100%);
+    border-radius: 18px;
+    color: #fff;
+    border: none;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 18px 28px rgba(39, 92, 196, 0.18);
+}
+
+.queue-card {
+    background: linear-gradient(135deg, #4aa9f7 0%, #2a4fd6 100%);
+    color: #fff;
+    border-radius: 18px;
+    box-shadow: 0 14px 30px rgba(31, 66, 176, 0.18);
+}
+
+.queue-card::after {
+    content: "";
+    position: absolute;
+    top: -76px;
+    right: 12%;
+    width: 190px;
+    height: 190px;
+    border: 14px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+    box-shadow: 0 0 0 18px rgba(255,255,255,0.035);
+}
+
+.queue-card .label {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.queue-card .value {
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.queue-card .number-box {
+    min-width: 170px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 16px;
+    padding: 18px 14px;
+    text-align: center;
+}
+
+.queue-card .number-box .small {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+}
+
+.queue-card .number-box .big {
+    display: block;
+    margin-top: 8px;
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 800;
+}
+
+.queue-card .number-box.served {
+    min-width: 170px;
+    background: #fff;
+    color: #2d4fc1;
+    border-color: rgba(255,255,255,0.7);
+    box-shadow: 0 12px 26px rgba(18, 38, 120, 0.16);
+}
+
+.queue-card .number-box.served .small {
+    color: #475569;
+}
+
+.queue-card .number-box.served .big {
+    color: #2d4fc1;
+}
+
+.queue-card .live-label {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.65rem;
+    color: #64748b;
+}
+
+.queue-card .live-label i {
+    color: #10b981;
+    font-size: 0.45rem;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+@media (max-width: 640px) {
+    .main-scroll {
+        padding: 16px;
+    }
+
+    .queue-card .number-box,
+    .queue-card .number-box.served {
+        min-width: 0;
+        flex: 1 1 0%;
+        padding: 14px 10px;
+    }
+
+    .queue-card .number-box .big {
+        font-size: 2.25rem;
+    }
 }
 
 @media (max-width: 1024px) {

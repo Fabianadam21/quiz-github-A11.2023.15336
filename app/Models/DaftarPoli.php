@@ -12,7 +12,7 @@ class DaftarPoli extends Model
         'id_pasien',
         'id_jadwal',
         'keluhan',
-        'no_antrian'
+        'no_antrian',
     ];
 
     public function pasien()
@@ -28,5 +28,10 @@ class DaftarPoli extends Model
     public function periksas()
     {
         return $this->hasMany(Periksa::class, 'id_daftar_poli');
+    }
+
+    public function periksa()
+    {
+        return $this->hasOne(Periksa::class, 'id_daftar_poli');
     }
 }

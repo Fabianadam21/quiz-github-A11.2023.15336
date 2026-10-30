@@ -1,0 +1,245 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1348>>
+stream
+BT
+/F2 18 Tf
+48 794 Td
+(Dokumentasi Fitur Aplikasi Poliklinik) Tj
+/F1 10 Tf
+0 -32 Td
+/F1 10 Tf
+(Nama: Fabian Adam Maheswara) Tj
+0 -17 Td
+/F1 10 Tf
+(NIM: A11.2023.15336) Tj
+0 -17 Td
+/F1 10 Tf
+(Repository: https://github.com/Fabianadam21/quiz-github-A11.2023.15336) Tj
+0 -17 Td
+/F1 10 Tf
+() Tj
+0 -17 Td
+/F2 12 Tf
+(Ringkasan) Tj
+0 -17 Td
+/F1 10 Tf
+(Aplikasi Poliklinik menyediakan alur pendaftaran pasien, antrean dokter, pemeriksaan,) Tj
+0 -17 Td
+/F1 10 Tf
+(pembayaran, notifikasi, riwayat, export Excel, dan pengelolaan password dalam satu) Tj
+0 -17 Td
+/F1 10 Tf
+(aplikasi Laravel dengan role admin, dokter, dan pasien.) Tj
+0 -17 Td
+/F1 10 Tf
+() Tj
+0 -17 Td
+/F2 12 Tf
+(Fitur yang dikembangkan) Tj
+0 -17 Td
+/F1 10 Tf
+(- Dashboard pasien menampilkan jadwal poli/dokter dan nomor antrean aktif.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Pembaruan nomor antrean menggunakan Laravel Reverb dan Echo.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Riwayat pendaftaran pasien dan detail pemeriksaan.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Notifikasi database untuk bukti pembayaran dan status pembayaran lunas.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Upload bukti oleh pasien dan verifikasi pembayaran oleh admin.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Export Excel dokter, pasien, obat \(stok/harga\), jadwal, dan riwayat dokter.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Ganti password dengan validasi password lama dan konfirmasi.) Tj
+0 -17 Td
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1313>>
+stream
+BT
+/F2 18 Tf
+48 794 Td
+(Alur Penggunaan) Tj
+/F1 10 Tf
+0 -32 Td
+/F1 10 Tf
+() Tj
+0 -17 Td
+/F2 12 Tf
+(Pasien) Tj
+0 -17 Td
+/F1 10 Tf
+(1. Buka Dashboard Pasien untuk melihat jadwal dan nomor antrean.) Tj
+0 -17 Td
+/F1 10 Tf
+(2. Daftar pada satu jadwal dokter dan isi keluhan.) Tj
+0 -17 Td
+/F1 10 Tf
+(3. Pantau nomor yang sedang dipanggil tanpa memuat ulang dashboard.) Tj
+0 -17 Td
+/F1 10 Tf
+(4. Buka Riwayat Pendaftaran untuk status dan detail pemeriksaan.) Tj
+0 -17 Td
+/F1 10 Tf
+(5. Setelah pemeriksaan, buka Pembayaran dan unggah bukti JPG/PNG.) Tj
+0 -17 Td
+/F1 10 Tf
+(6. Periksa notifikasi setelah admin mengonfirmasi pembayaran.) Tj
+0 -17 Td
+/F1 10 Tf
+() Tj
+0 -17 Td
+/F2 12 Tf
+(Dokter) Tj
+0 -17 Td
+/F1 10 Tf
+(1. Kelola jadwal sendiri dan pantau antrean pasien.) Tj
+0 -17 Td
+/F1 10 Tf
+(2. Periksa pasien, isi catatan, biaya, dan obat yang diberikan.) Tj
+0 -17 Td
+/F1 10 Tf
+(3. Buka Riwayat Pasien atau ekspor jadwal/riwayat ke Excel.) Tj
+0 -17 Td
+/F1 10 Tf
+(4. Terima notifikasi saat pasien mengunggah bukti pembayaran.) Tj
+0 -17 Td
+/F1 10 Tf
+() Tj
+0 -17 Td
+/F2 12 Tf
+(Admin) Tj
+0 -17 Td
+/F1 10 Tf
+(1. Kelola data dokter, pasien, poli, dan obat.) Tj
+0 -17 Td
+/F1 10 Tf
+(2. Periksa bukti pembayaran dan konfirmasi status lunas.) Tj
+0 -17 Td
+/F1 10 Tf
+(3. Ekspor data dokter, pasien, dan obat ke Excel.) Tj
+0 -17 Td
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1535>>
+stream
+BT
+/F2 18 Tf
+48 794 Td
+(Constraint Teknis dan Menjalankan Aplikasi) Tj
+/F1 10 Tf
+0 -32 Td
+/F1 10 Tf
+() Tj
+0 -17 Td
+/F2 12 Tf
+(Constraint) Tj
+0 -17 Td
+/F1 10 Tf
+(- Satu antrean aktif per pasien sampai pemeriksaan sebelumnya selesai.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Perubahan antrean disiarkan per jadwal setelah pendaftaran/pemeriksaan.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Riwayat, detail, dan unggah bukti dibatasi pada pasien pemilik data.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Pemeriksaan dibatasi pada dokter pemilik jadwal.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Notifikasi hanya dapat dibaca/ditandai oleh penerima yang login.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Bukti menerima JPG/JPEG/PNG maksimal 5 MB dan disimpan di disk privat.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Transisi pembayaran mencegah verifikasi dan notifikasi ganda.) Tj
+0 -17 Td
+/F1 10 Tf
+(- Password baru minimum 8 karakter, dikonfirmasi, berbeda dari yang lama,) Tj
+0 -17 Td
+/F1 10 Tf
+(  dan disimpan dalam bentuk hash.) Tj
+0 -17 Td
+/F1 10 Tf
+() Tj
+0 -17 Td
+/F2 12 Tf
+(Setup lokal) Tj
+0 -17 Td
+/F1 10 Tf
+(1. Isi .env, lalu jalankan composer install dan npm install.) Tj
+0 -17 Td
+/F1 10 Tf
+(2. Jalankan php artisan reverb:install untuk menyiapkan kunci Reverb.) Tj
+0 -17 Td
+/F1 10 Tf
+(3. Jalankan php artisan migrate.) Tj
+0 -17 Td
+/F1 10 Tf
+(4. Jalankan php artisan serve, php artisan reverb:start, dan npm run dev.) Tj
+0 -17 Td
+/F1 10 Tf
+(5. Jalankan php artisan test untuk memeriksa fitur otomatis.) Tj
+0 -17 Td
+/F1 10 Tf
+() Tj
+0 -17 Td
+/F1 10 Tf
+(Catatan: composer.json project ini menggunakan Laravel 12.) Tj
+0 -17 Td
+ET
+endstream
+endobj
+xref
+0 11
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000133 00000 n 
+0000000203 00000 n 
+0000000278 00000 n 
+0000000414 00000 n 
+0000001813 00000 n 
+0000001949 00000 n 
+0000003313 00000 n 
+0000003450 00000 n 
+trailer
+<< /Size 11 /Root 1 0 R >>
+startxref
+5037
+%%EOF
